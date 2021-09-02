@@ -361,111 +361,103 @@ PreparedStatement pst=null;
                 
                 //"select * from Employeeinfo where username=? and password=? and division=? and id=?";
         try{
-           int count =0;
-         
-           pst=conn.prepareStatement(sql);
-           
-           
-           pst.setString(1,txt_username.getText());
-           pst.setString(2,txt_password.getText());
-           pst.setString(3, txt_combo.getSelectedItem().toString());
-           
-           rs=pst.executeQuery();
-           
-            
-           {
-           }
-           while(rs.next()){
-               int id = rs.getInt(1);
-               Emp.empId = id;
-               count =count+1;
-           }
-           String access=(txt_combo.getSelectedItem().toString());
+               int count =0;
+
+               pst=conn.prepareStatement(sql);
+
+
+               pst.setString(1,txt_username.getText());
+               pst.setString(2,txt_password.getText());
+               pst.setString(3, txt_combo.getSelectedItem().toString());
+
+               rs=pst.executeQuery();
+
+               while(rs.next()){
+                   int id = rs.getInt(1);
+                   Emp.empId = id;
+                   count =count+1;
+               }
+               String access=(txt_combo.getSelectedItem().toString());
              
            
            
-           if(access =="Admin") {
-           
-               if(count==1){
-                   JOptionPane.showMessageDialog(null,"Success" );
-                   MainMenu j = new MainMenu();
-                   j.setVisible(true);
-                   this.dispose();
-                   
-                   Date currentDate = GregorianCalendar.getInstance().getTime();
-                  DateFormat df = DateFormat.getDateInstance();
-                  String dateString = df.format(currentDate);
+               if(access =="Admin") 
+               {
 
-                  Date d = new Date();
-                  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                  String timeString = sdf.format(d);
+                       if(count==1){
+                               JOptionPane.showMessageDialog(null,"Success" );
+                               MainMenu j = new MainMenu();
+                               j.setVisible(true);
+                               this.dispose();
 
-                  String value0 = timeString;
-                  String values = dateString;
-                   
-                   
-                   int value = Emp.empId;
-                   String reg = "insert into Audit (emp_id,date,status) values ('"+value+"','"+value0+" / "+values+"','Logged in')";
-                   pst=conn.prepareStatement(reg);
-                   pst.execute();
-                   this.dispose();
-           
-           }
-               
-           
-           
-           else if(count>1){
-                   JOptionPane.showMessageDialog(null,"Duplicate Username or Password Access denied");
-                   }
-           
-        
-           else{
-               JOptionPane.showMessageDialog(null,"Username and Password is not correct");
-               
-               
-               
-           }
-               
-           }
-               else if(access=="Sales"){
-                   
-                   if(count ==1){
-                   JOptionPane.showMessageDialog(null,"Success");
-                   MainMenu j = new MainMenu();
-                   j.setVisible (true); 
-                   
-                   
-                   Date currentDate = GregorianCalendar.getInstance().getTime();
-                  DateFormat df = DateFormat.getDateInstance();
-                  String dateString = df.format(currentDate);
+                               Date currentDate = GregorianCalendar.getInstance().getTime();
+                              DateFormat df = DateFormat.getDateInstance();
+                              String dateString = df.format(currentDate);
 
-                  Date d = new Date();
-                  SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-                  String timeString = sdf.format(d);
+                              Date d = new Date();
+                              SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                              String timeString = sdf.format(d);
 
-                  String value0 = timeString;
-                  String values = dateString;
+                              String value0 = timeString;
+                              String values = dateString;
+
+
+                               int value = Emp.empId;
+                               String reg = "insert into Audit (emp_id,date,status) values ('"+value+"','"+value0+" / "+values+"','Logged in')";
+                               pst=conn.prepareStatement(reg);
+                               pst.execute();
+                               this.dispose();
+           
+                               }
+                               else if(count>1){
+                                       JOptionPane.showMessageDialog(null,"Duplicate Username or Password Access denied");
+                               }
+                               else{
+                                   JOptionPane.showMessageDialog(null,"Username and Password is not correct");
+                               }
+               
+               }
+               else if(access=="Sales")
+               {
                    
-                   
-                   int value = Emp.empId;
-                   String reg = "insert into Audit (emp_id,date,status) values ('"+value+"','"+value0+" / "+values+"','Logged in')";
-                   pst=conn.prepareStatement(reg);
-                   pst.execute();
-                   this.dispose();
-                   }
+                       if(count ==1){
+                       JOptionPane.showMessageDialog(null,"Success");
+                       MainMenu j = new MainMenu();
+                       j.setVisible (true); 
+
+
+                       Date currentDate = GregorianCalendar.getInstance().getTime();
+                      DateFormat df = DateFormat.getDateInstance();
+                      String dateString = df.format(currentDate);
+
+                      Date d = new Date();
+                      SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+                      String timeString = sdf.format(d);
+
+                      String value0 = timeString;
+                      String values = dateString;
+
+
+                       int value = Emp.empId;
+                       String reg = "insert into Audit (emp_id,date,status) values ('"+value+"','"+value0+" / "+values+"','Logged in')";
+                       pst=conn.prepareStatement(reg);
+                       pst.execute();
+                       this.dispose();
+                }
                    
          
-                else{
-               JOptionPane.showMessageDialog(null,"Username and Password is not correct");
+               else
+               {
+                        JOptionPane.showMessageDialog(null,"Username and Password is not correct");
                
-           }    
+               }    
                    
                    
-               }
+        }
                
            
-        } catch(Exception e)
-
+        }
+        catch(Exception e)
         {
              JOptionPane.showMessageDialog(null, e);
 
